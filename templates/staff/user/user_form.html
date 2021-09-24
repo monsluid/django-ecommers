@@ -1,0 +1,47 @@
+{% extends 'home/home.html' %}
+{% block pageContent %}
+    <div class="container">
+        <div class="row justify-content-md-center">
+            <div class="card col-md-8">
+                <div class="card-header">
+                    <h6 class="m-0 font-weight-bold text-primary">Registro de usuario</h6>
+                </div>
+                <div class="card-body">
+                    <form method="post" enctype="multipart/form-data" id="UserForm">{% csrf_token %}
+                        <div class="form-row">
+                            <div class="form-group col-md-12">
+                                <div>
+                                    <label for="#">{{ form.username.label }}</label>
+                                    {{ form.username }}
+                                </div>
+                                <div>
+                                    <label for="#">{{ form.last_name.label }}</label>
+                                    {{ form.first_name }}
+                                </div>
+                                <div>
+                                    <label for="#">{{ form.first_name.label }}</label>
+                                    {{ form.last_name }}
+                                </div>
+                                <div>
+                                    <label for="#">{{ form.email.label }}</label>
+                                    {{ form.email }}
+                                </div>
+                            </div>
+                            <div>
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="fas fa-save"></i>
+                                    Guardar
+                                </button>
+                                <a href="{% url 'staff:user_list' %}" class="btn btn-secondary">
+                                    <i class="fas fa-times-circle"></i>
+                                    Cancelar
+                                </a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

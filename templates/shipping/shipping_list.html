@@ -1,0 +1,25 @@
+{% extends 'web/index.html' %}
+{% block Banner %}
+    <header class="masthead bg-secondary text-white text-center">
+        <div class="container d-flex align-items-center flex-column">
+            <h1>Pedidos en linea</h1>           
+        </div>
+    </header>
+{% endblock Banner %}
+{% block pageContent %}
+        <div class="container mb-5 mt-5">
+            <div class="row" >
+                {% for shipping in shipping_list %}
+                    <div class="col-sm-4 mt-3">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ shipping.name }}</h5>
+                                <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                                <a href="{% url 'shipping:shipping' product.id %}" class="btn btn-primary">Agregar</a>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}    
+            </div>
+        </div> 
+{% endblock %}

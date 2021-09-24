@@ -1,0 +1,131 @@
+{% extends 'home/home.html' %}
+{% block pageContent %}
+    <div class="container-fluid">
+        <h1 class="h3 mb-2 text-gray-800">Lista de producto ME</h1>
+        <p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below. For more
+            information about DataTables, please visit the <a target="_blank" href="https://datatables.net">official
+                DataTables documentation</a>.</p>
+        <div class="row">
+            <div class="col-lg-4 mb-4">
+                <div class="card text-white bg-secondary mb-3">
+                    <div class="card-body">
+                        <h5 class="card-title">Agregar Marca</h5>
+                        <p class="card-text">Text below as a natural lead-in to additional content.</p>
+                        <a href="{% url 'product:brand_list' %}" class="btn btn-primary btn-icon-split mb-3">
+                        <span class="icon text-white-50">
+                            <i class="fas fa-plus"></i>
+                        </span>
+                            <span class="text">Agregar</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 mb-4">
+                <div class="card text-white bg-success mb-3">
+                    <div class="card-body">
+                        <h5 class="card-title">Agregar Categoria</h5>
+                        <p class="card-text">Text below as a natural lead-in to additional content.</p>
+                        <a href="{% url 'product:category_list' %}" class="btn btn-primary btn-icon-split mb-3">
+                        <span class="icon text-white-50">
+                            <i class="fas fa-plus"></i>
+                        </span>
+                            <span class="text">Agregar</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 mb-4">
+                <div class="card text-white bg-info mb-3">
+                    <div class="card-body">
+                        <h5 class="card-title">Agregar Estado</h5>
+                        <p class="card-text">Text below as a natural lead-in to additional content.</p>
+                        <a href="{% url 'product:state_list' %}" class="btn btn-primary btn-icon-split mb-3">
+                        <span class="icon text-white-50">
+                            <i class="fas fa-plus"></i>
+                        </span>
+                            <span class="text">Agregar</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% block Product %}
+        {% if product_list %}
+            <!-- Begin Page Content -->
+            <div class="container-fluid">
+                <!-- DataTales Example -->
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">Registro De Producto</h6>
+                    </div>
+                    <div class="card-body">
+                        <a href="{% url 'product:product_new' %}" class="btn btn-primary btn-icon-split mb-3">
+                        <span class="icon text-white-50">
+                            <i class="fas fa-plus"></i>
+                        </span>
+                            <span class="text">Agregar</span>
+                        </a>
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-hover" id="dataTable" width="100%" cellspacing="0">
+                                <thead>
+                                <tr>
+                                    <th>Id</th>
+                                    <th>Nombre</th>
+                                    <th>Categoria</th>
+                                    <th>Marca</th>
+                                    <th>Estado</th>
+                                    <th>Accion</th>
+                                </tr>
+                                </thead>
+                                <tfoot>
+                                <tr>
+                                    <th>Id</th>
+                                    <th>Nombre</th>
+                                    <th>Categoria</th>
+                                    <th>Marca</th>
+                                    <th>Estado</th>
+                                    <th>Accion</th>
+                                </tr>
+                                </tfoot>
+                                <tbody>
+                                {% for product in product_list %}
+                                    <tr>
+                                        <td>{{ product.idProduct }}</td>
+                                        <td>{{ product.name }}</td>
+                                        <td>{{ product.category }}</td>
+                                        <td>{{ product.brand }}</td>
+                                        <td>{{ product.state }}</td>
+                                        <td>
+                                            <a href="{% url 'product:product_update' product.idProduct %}"
+                                               class="btn btn-success btn-circle btn-sm">
+                                                <i class="fas fa-edit"></i>
+                                            </a>
+                                            <a href="{% url 'product:product_delete' product.idProduct %}"
+                                               class="btn btn-danger btn-circle btn-sm">
+                                                <i class="fas fa-trash"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% else %}
+            <div class="container">
+                <div class="alert alert-primary" role="alert">
+                    No hay registros de producto!
+                </div>
+                <a href="{% url 'product:product_new' %}" class="btn btn-primary btn-icon-split mb-3">
+                <span class="icon text-white-50">
+                    <i class="fas fa-plus"></i>
+                </span>
+                    <span class="text">Agregar</span>
+                </a>
+            </div>
+        {% endif %}
+    {% endblock %}
+{% endblock %}

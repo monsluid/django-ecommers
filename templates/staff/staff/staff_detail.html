@@ -1,0 +1,36 @@
+{% extends 'home/home.html' %}
+{% block pageContent %}
+    {% if  staff_detail %}
+        <div class="row justify-content-md-center">
+            <div class="card col-md-8">
+                <div class="card-header">
+                    <h6 class="m-0 font-weight-bold text-primary">Reporte de personal</h6>
+                </div>
+                <div class="card-body">
+                    <form method="post">{% csrf_token %}
+                        <h1 class="h3 mb-2 text-gray-800">Detalles de {{ object.name }}</h1>
+                        <div>
+                            <h5>Cedula: {{ object.idStaff }}</h5>
+                            <h5>Nombre: {{ object.name }}</h5>
+                            <h5>Dirreccion: {{ object.direction }}</h5>
+                            <h5></h5>
+                        </div>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-trash"></i>
+                            Eliminar
+                        </button>
+                        <a href="{% url 'staff:user_list' %}" class="btn btn-secondary">
+                            <i class="fas fa-times-circle"></i>
+                            Cancelar
+                        </a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    {% else %}
+        <div class="alert alert-primary" role="alert">
+            No hay registros de personal!
+        </div>
+    {% endif %}
+
+{% endblock %}

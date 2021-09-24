@@ -1,0 +1,26 @@
+{% extends 'home/home.html' %}
+{% block pageContent %}
+    <div class="container">
+        <div class="row justify-content-md-center">
+            <div class="card col-md-8">
+                <div class="card-header">
+                    <h6 class="m-0 font-weight-bold text-primary">Confirmar</h6>
+                </div>
+                <div class="card-body">
+                    <h1>Eliminar Estado</h1>
+                    <form method="post">{% csrf_token %}
+                        <p>Esta seguro que desea eliminar el estado "{{ object }}" ?</p>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-trash"></i>
+                            Eliminar
+                        </button>
+                        <a href="{% url 'product:state_list' %}" class="btn btn-secondary">
+                            <i class="fas fa-times-circle"></i>
+                            Cancelar
+                        </a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,89 @@
+{% extends 'home/home.html' %}
+{% block pageContent %}
+    <div class="container-fluid">
+        <!-- Page Heading -->
+        <h1 class="h3 mb-2 text-gray-800">Lista de usuario ME</h1>
+        <p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below. For more
+            information about DataTables, please visit the <a target="_blank" href="https://datatables.net">official
+                DataTables documentation</a>.</p>
+    </div>
+    {% if user_list %}
+        <!-- Begin Page Content -->
+        <div class="container-fluid">
+            <!-- DataTales Example -->
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Registro De Usuario</h6>
+                </div>
+                <div class="card-body">
+                    <a href="{% url 'staff:user_new' %}" class="btn btn-primary btn-icon-split mb-3">
+                        <span class="icon text-white-50">
+                            <i class="fas fa-plus"></i>
+                        </span>
+                        <span class="text">Agregar</span>
+                    </a>
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-hover" id="dataTable" width="100%" cellspacing="0">
+                            <thead>
+                            <tr>
+                                <th>Nombre de Usuario</th>
+                                <th>Nombre</th>
+                                <th>Apellido</th>
+                                <th>Correo</th>
+                                <th>Acciones</th>
+                            </tr>
+                            </thead>
+                            <tfoot>
+                            <tr>
+                                <th>Nombre de Usuario</th>
+                                <th>Nombre</th>
+                                <th>Apellido</th>
+                                <th>Correo</th>
+                                <th>Acciones</th>
+
+                            </tr>
+                            </tfoot>
+                            <tbody>
+                            {% for user in user_list %}
+                                <tr>
+                                    <td>{{ user.username }}</td>
+                                    <td>{{ user.first_name }}</td>
+                                    <td>{{ user.last_name }}</td>
+                                    <td>{{ user.email }}</td>
+                                    <td>
+                                        <a href="{% url 'staff:user_update' user.id %}"
+                                           class="btn btn-success btn-circle btn-sm">
+                                            <i class="fas fa-edit"></i>
+                                        </a>
+                                        <a href="{% url 'staff:user_delete' user.id %}"
+                                           class="btn btn-danger btn-circle btn-sm">
+                                            <i class="fas fa-trash"></i>
+                                        </a>
+                                        <a href="#" class="btn btn-info btn-circle btn-sm">
+                                            <i class="fas fa-info-circle"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /.container-fluid -->
+    {% else %}
+        <div class="container">
+            <div class="alert alert-primary" role="alert">
+                No hay registros de usuario!
+            </div>
+            <a href="{% url 'staff:user_new' %}" class="btn btn-primary btn-icon-split mb-3">
+                <span class="icon text-white-50">
+                    <i class="fas fa-plus"></i>
+                </span>
+                <span class="text">Agregar</span>
+            </a>
+        </div>
+
+    {% endif %}
+{% endblock %}
