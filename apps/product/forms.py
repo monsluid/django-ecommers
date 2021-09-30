@@ -63,7 +63,7 @@ class StateForm(forms.ModelForm):
 
 
 # -------------------------------------------------------->
-# Forms State
+# Product Forms
 
 class ProductForm(forms.ModelForm):
     class Meta:
@@ -74,6 +74,9 @@ class ProductForm(forms.ModelForm):
             'category',
             'brand',
             'state',
+            'price',
+            'description',
+            'picture',
         )
         labels = {
             'idProduct': 'ID',
@@ -81,6 +84,9 @@ class ProductForm(forms.ModelForm):
             'category': 'Categoria',
             'brand': 'Marca',
             'state': 'Estado',
+            'price': 'Costo',
+            'description': 'Descripcion',
+            'picture': 'Imagen',
         }
         widgets = {
             'idProduct': forms.TextInput(attrs={'class': 'form-control'}),
@@ -88,6 +94,9 @@ class ProductForm(forms.ModelForm):
             'category': forms.Select(attrs={'class': 'form-control'}),
             'brand': forms.Select(attrs={'class': 'form-control'}),
             'state': forms.Select(attrs={'class': 'form-control'}),
+            'price': forms.NumberInput(attrs={'class': 'form-control'}),
+            'description': forms.Textarea(attrs={'class': 'form-control'}),
+            'picture': forms.ClearableFileInput(attrs={'class':'form-control-file'}),
         }
 
 

@@ -51,14 +51,20 @@ class State(models.Model):
 # ------------------------------------------------------------------------------------>
 # Model Product
 
+def product_directory_path(instance, filename):
+    return 'product/{}/{}'.format(instance.name,filename)
 
 class Product(models.Model):
-    idProduct = models.CharField(max_length=100, primary_key=True)
+    idProduct = models.CharField(max_length=100, primary_key=True, unique=True)
     name = models.CharField(max_length=100, null=True)
     category = models.ForeignKey(Category, on_delete=models.CASCADE, null=True)
     brand = models.ForeignKey(Brand, on_delete=models.CASCADE, null=True)
     state = models.ForeignKey(State, on_delete=models.CASCADE, null=True)
     status = models.BooleanField(default = True)
+    picture = models.ImageField(upload_to=product_directory_path, null=True, blank=True)
+    price = models.DecimalField(decimal_places=2, max_digits=10, default=0)
+    description = models.TextField(blank=True, null=True)
+
 
     class Meta:
         verbose_name = 'Product'
