@@ -1,7 +1,11 @@
-from apps.product.models import Category, Brand, State, Product
-from apps.product.forms import CategoryForm, BrandForm, StateForm, ProductForm
-from django.views.generic import ListView, CreateView, UpdateView, DeleteView, DetailView
 from django.urls import reverse_lazy
+from django.views.generic import ListView, CreateView, UpdateView, DeleteView
+
+from rest_framework.generics import ListAPIView, RetrieveAPIView
+
+from .models import Category, Brand, State, Product
+from .forms import CategoryForm, BrandForm, StateForm, ProductForm
+from .serializars import ProductSerializer
 
 # ------------------------------------------------------------------------------------>
 # view Brand
@@ -125,6 +129,37 @@ class ProductDelete(DeleteView):
     form_class = ProductForm
     template_name = 'product/product/product_confirm_delete.html'
     success_url = reverse_lazy('product:product_list')
+
+
+# ApiViews
+
+class ProductLisApi(ListAPIView):
+
+    serializer_class = ProductSerializer
+    queryset = Product.objects.all()
+
+
+class SearchProductApi(ListAPIView):
+
+    serializer_class = ProductSerializer
+
+    def get_queryset(self):
+        query = self.request.query_params['q']
+
+        return Product.objects.filter(
+                    name__icontains=query
+                )
+
+class ProductDetailApi(RetrieveAPIView):
+
+    serializer_class = ProductSerializer
+    
+
+    def get_queryset(self):
+        id = self.kwargs['pk']
+        return Product.objects.filter(idProduct=id)
+
+
 
 
 

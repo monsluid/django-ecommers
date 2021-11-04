@@ -6,6 +6,8 @@ from apps.product.views import BrandList, BrandNew, BrandUpdate, BrandDelete
 from apps.product.views import StateList, StateNew, StateUpdate, StateDelete
 from apps.product.views import ProductList, ProductNew, ProductUpdate, ProductDelete
 
+from .views import ProductLisApi, SearchProductApi, ProductDetailApi
+
 
 # -------------------------------------------------------->
 # Path Routers API
@@ -45,5 +47,11 @@ urlpatterns = [
     path('productNew', ProductNew.as_view(), name='product_new'),
     path('productUpdate/<str:pk>/', ProductUpdate.as_view(), name='product_update'),
     path('productDelete/<str:pk>/', ProductDelete.as_view(), name='product_delete'),
+
+    ## Api Routers
+    path('api/list', ProductLisApi.as_view()),
+    path('api/search', SearchProductApi.as_view()),
+    path('api/product/<pk>', ProductDetailApi.as_view()),
+    path('shop/product/<pk>', ProductDetailApi.as_view())
 
 ]

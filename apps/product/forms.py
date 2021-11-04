@@ -77,6 +77,7 @@ class ProductForm(forms.ModelForm):
             'price',
             'description',
             'picture',
+            'stock',
         )
         labels = {
             'idProduct': 'ID',
@@ -87,6 +88,7 @@ class ProductForm(forms.ModelForm):
             'price': 'Costo',
             'description': 'Descripcion',
             'picture': 'Imagen',
+            'stock': 'Piezas en Almacen',
         }
         widgets = {
             'idProduct': forms.TextInput(attrs={'class': 'form-control'}),
@@ -97,6 +99,7 @@ class ProductForm(forms.ModelForm):
             'price': forms.NumberInput(attrs={'class': 'form-control'}),
             'description': forms.Textarea(attrs={'class': 'form-control'}),
             'picture': forms.ClearableFileInput(attrs={'class':'form-control-file'}),
+            'price': forms.NumberInput(attrs={'class': 'form-control'}),
         }
 
 

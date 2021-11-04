@@ -32,4 +32,10 @@ class ShippingNew(CreateView):
     success_url = reverse_lazy('product:product_list')
 
 
+class ShippingProductDetail(DetailView):
+
+    model = Product
+    template_name = 'shipping/productDetail.html'
+
+
     

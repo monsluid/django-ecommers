@@ -1,6 +1,6 @@
 from django.urls import path
 
-from apps.shipping.views import ShippingList, ShippingNew, Shipping
+from apps.shipping.views import ShippingList, ShippingNew, Shipping, ShippingProductDetail 
 
 
 # -------------------------------------------------------->
@@ -13,7 +13,7 @@ urlpatterns = [
     # -------------------------------------------------------->
     # Path Gallery
     
-    path('shippingList', ShippingList.as_view(), name='shipping_list'),
-    path('shippingNew', ShippingNew.as_view(), name='shipping_new'),
-    path('shippin/<int:pk>/', Shipping.as_view(), name='shipping'),
+    path('', ShippingList.as_view(), name='shipping_list'),
+    path('product/<pk>', ShippingProductDetail.as_view(), name='product-detail'),
+
 ]

@@ -64,6 +64,7 @@ class Product(models.Model):
     picture = models.ImageField(upload_to=product_directory_path, null=True, blank=True)
     price = models.DecimalField(decimal_places=2, max_digits=10, default=0)
     description = models.TextField(blank=True, null=True)
+    stock = models.IntegerField(default=1)
 
 
     class Meta:

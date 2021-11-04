@@ -1,0 +1,92 @@
+
+{% extends 'web/index.html' %}
+{% load  static %}
+{% block Banner %}
+    <header class="masthead bg-secondary text-white text-center">
+        <div class="container-fluid d-flex align-items-center flex-column">
+            <h1>Pedidos en linea</h1>
+        </div>
+    </header>
+{% endblock Banner %}
+{% block pageContent %}
+<div class="container" id="vue-app">
+<!-- Search Bar -->
+	<div class="row">
+		<div class="col">
+			<form class="my-4">
+				<div class="row">
+					<div class="col-7 offset-1 offset-md-2">
+						<input
+							type="text"
+							placeholder="Buscar producto"
+							disabled
+							class="form-control">
+					</div>
+					<div class="col-1">
+						<button 
+							type="submit"
+							disabled
+							class="btn btn-secondary"
+							style="width: 100px;"
+							>Buscar</button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+<!-- End Search Bar -->
+
+<!-- Detail Products -->
+	<div class="row">
+		<div class="col-12 col-md-8 offset-md-2">
+			<div class="card my-3">
+				<img :src="product.picture" class="card-ig-top">
+				<div class="card-body">
+					<h4 class="text-center">{$ product.name $}</h4>
+					<h5>${$ product.price $} USD</h5>
+					<p>Disponibles: {$ product.stock $}</p>
+					<div class="text-center mt-3" v-if="product.stock > 0">
+						<button @click="decreaseQuantity"
+ 							class="btn btn-secondary" 
+							style="width: 50px;"
+						>-</button>
+						<span class="mx-5">{$ quantity $}</span>
+						<button @click="incrementQuantity"
+							class="btn btn-secondary" 
+							style="width: 50px;">+</button>
+						
+						<div class="d-flex justify-content-around my-5">
+							<a 
+								class="btn btn-secondary ml-2"
+								style="width: 150px;"
+								href="#">Comprar Ahora</a>
+							<a @click="addProduct"
+								class="btn btn-secondary mr-2"
+								style="width: 150px;"
+								href="#">Agregar al carito</a>
+						</div>
+						<div>
+							<h5>Descripcion:</h5>
+							<p class="text-justify">{$ product.description $}</p>
+						</div>
+					</div>
+					<div class="text-center" v-else>
+						<h5>Producto Agotado</h5>
+						<a 
+							class="btn btn-secondary btn-large mt-3"
+ 							href="{% url 'shipping:shipping_list'  %}">Atras</a>
+					</div>
+					<div v-if="message"
+						class="alert alert-info mt-3 text-center">
+						<h6>{$ message $}</h6>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+<!-- End Detail -->
+</div>
+{% endblock %}
+{% block vueApp %}
+	<script src="{% static 'js/cart/productDetail.vue.js' %}"></script>
+{% endblock vueApp %}
