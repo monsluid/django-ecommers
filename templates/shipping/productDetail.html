@@ -44,8 +44,8 @@
 				<div class="card-body">
 					<h4 class="text-center">{$ product.name $}</h4>
 					<h5>${$ product.price $} USD</h5>
-					<p>Disponibles: {$ product.stock $}</p>
-					<div class="text-center mt-3" v-if="product.stock > 0">
+					<p>Disponibles: {$ avabiliy $}</p>
+					<div class="text-center mt-3" v-if="avabiliy > 0">
 						<button @click="decreaseQuantity"
  							class="btn btn-secondary" 
 							style="width: 50px;"
@@ -63,7 +63,7 @@
 							<a @click="addProduct"
 								class="btn btn-secondary mr-2"
 								style="width: 150px;"
-								href="#">Agregar al carito</a>
+								href="{% url 'shipping:cart' %}">Agregar al carito</a>
 						</div>
 						<div>
 							<h5>Descripcion:</h5>

@@ -1,0 +1,115 @@
+
+{% extends 'web/index.html' %}
+{% load  static %}
+{% block Banner %}
+    <header class="masthead bg-secondary text-white text-center">
+        <div class="container-fluid d-flex align-items-center flex-column">
+            <h1>Pedidos en linea</h1>
+        </div>
+    </header>
+{% endblock Banner %}
+{% block pageContent %}
+<div class="container" id="vue-app">
+<!-- Search Bar -->
+	<div class="row">
+		<div class="col">
+			<form class="my-4">
+				<div class="row">
+					<div class="col-7 offset-1 offset-md-2">
+						<input
+							type="text"
+							placeholder="Buscar producto"
+							disabled
+							class="form-control">
+					</div>
+					<div class="col-1">
+						<button 
+							type="submit"
+							disabled
+							class="btn btn-secondary"
+							style="width: 100px;"
+							>Buscar</button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+<!-- End Search Bar -->
+
+<!-- Detail Products -->
+	<div v-for="product in cart"
+		:key="product.product_id"
+		class="row mt-3">
+		<div class="col-3">
+			<img :src="product.picture" style="width: 100px; height: 100px;">
+		</div>
+		<div class="col-9">
+			<div>
+				<h6>{$ product.name $}</h6>
+				{$ product.stock $} disponibles
+				<div class="row mt-3">
+					<div class="col">
+						<button
+							@click="decreaseQuantity(product.product_id)"
+							class="btn btn-secondary"
+							>-</button>
+					<span class="mx-3">{$ product.quantity $}</span>
+						<button
+								:id="product.product_id"
+								data-toggle="popover" 
+								data-content="Es el limite de la disponibilidad"
+								data-placement="left"
+								@click="incrementQuantity(product.product_id)"
+								class="btn btn-secondary btn-popover"
+							>+</button>
+					</div>
+					<div class="col">
+					precio: ${$ product.price $} USD
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-12 mt-2">
+			<button @click="deleteProduct(product.product_id)"
+ 				class="btn btn-danger"
+				>Eliminar</button>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-12">
+			<div class="card my-3" v-if="cart.length > 0">
+				<div class="card-body">
+				<div class="row">
+					<div class="col-12">
+						<p class="text-center h6">{$ cart.length $} Productos</p>
+						<p class="text-center h6">Total a pagar: ${$ setTotal $} USD + Envio</p>
+					</div>
+				</div>
+				<div class="row mt-3">
+					<div class="col-6 offset-3">
+						<button 
+							class="btn btn-secondary btn-block"
+							>Pagar</button>
+					</div>
+				</div>
+				<div class="row mt-3">
+					<div class="col-6 offset-3">
+						<a href="{% url 'shipping:shipping_list' %}"
+							class="btn btn-dark btn-block"
+							>Seguir Comprando</a>
+					</div>
+				</div>
+				</div>
+			</div>
+			<div class="alert alert-info text-center" v-else>
+				<h4>No hay Productos en tu carrito</h4>
+				<a href="{% url 'shipping:shipping_list' %}" class="btn btn-secondary my-3" style="width: 150px;">Ir a la tienda</a>
+			</div>
+		</div>
+	</div>
+<!-- End Detail -->
+</div>
+{% endblock %}
+{% block vueApp %}
+	<script src="{% static 'js/cart/cart.vue.js' %}"></script>
+{% endblock vueApp %}

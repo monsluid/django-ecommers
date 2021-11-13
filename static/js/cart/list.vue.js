@@ -27,12 +27,32 @@ const app = Vue.createApp({
 
 		productDetails(id){
 			location.href = `/shop/product/${id}`
+		},
+
+		getSavedCart(){
+			let savedCart
+
+			if(localStorage.getItem('cart') === null){
+				
+				savedCart = []
+
+			} else{
+				savedCart = JSON.parse(localStorage.getItem('cart'))
+			}
+			return savedCart
+		},
+	},
+
+	computed:{
+		cartLength(){
+			return this.cart.length
 		}
 	},
 	
 	
 	created(){
 		this.getProducts()
+		this.cart = this.getSavedCart()
 	},
 
 	watch:{

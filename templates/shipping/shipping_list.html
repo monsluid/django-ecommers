@@ -9,6 +9,17 @@
 {% endblock Banner %}
 {% block pageContent %}
 <div class="container" id="vue-app">
+<!-- cart alert -->
+<div class="row" v-if="cart.length > 0">
+		<div class="col-12 mt-3">
+			<div class="alert alert-dark d-flex flex-column align-items-center">
+				<p>Tienes {$ cartLength $} productos en tu carrito</p>
+				<a class="btn btn-outline-secondary"
+					href="{% url 'shipping:cart' %}">Comprar Ahora</a>
+			</div>
+		</div>
+	</div>
+<!-- end cart alert -->
 <!-- Search Bar -->
 	<div class="row">
 		<div class="col">

@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.views.generic.base import TemplateView
 from apps.shipping.models import Shipping
 from apps.product.models import Product
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView, DetailView
@@ -36,6 +37,11 @@ class ShippingProductDetail(DetailView):
 
     model = Product
     template_name = 'shipping/productDetail.html'
+
+
+class Cart(TemplateView):
+
+    template_name = "shipping/cart.html"
 
 
     

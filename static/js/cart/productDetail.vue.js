@@ -5,7 +5,8 @@ const app = Vue.createApp({
 			cart:[],
 			product:{},
 			quantity:1,
-			message: ""
+			message: "",
+			avabiliy:0
 		}
 	},
 
@@ -14,10 +15,32 @@ const app = Vue.createApp({
 			const url = '/product' + location.pathname
 			const { data } = await axios.get(url)
 			this.product = data
+			this.setAvability()
+		},
+
+		setAvability(){
+			const product = this.isProductIncart()
+			const { stock } = this.product
+			if(!product){
+				this.avabiliy = stock
+			} else {
+				this.avabiliy = stock - product.quantity
+			}
+		},
+
+		isProductIncart(){
+			const { idProduct } = this.product
+			const product = this.cart.find( cartItem => cartItem.product_id === idProduct )
+
+			if(product){
+				return product
+			} else {
+				return undefined
+			}
 		},
 		
 		incrementQuantity(){
-			if(this.quantity >= this.product.stock){
+			if(this.quantity >= this.avabiliy){
 				return
 			}
 
@@ -57,7 +80,9 @@ const app = Vue.createApp({
 			 const productToCart = {
 				 product_id: this.product.idProduct,
 				 name: this.product.name,
+				 picture: this.product.picture,
 				 quantity: this.quantity,
+				 stock: this.product.stock,
 				 price: this.product.price,
 				 total: this.quantity * this.product.price
 			 }
